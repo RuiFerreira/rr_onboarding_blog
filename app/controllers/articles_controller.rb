@@ -35,6 +35,16 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    if @article.destroy
+      flash[:notice] = 'Article successfully deleted'
+      redirect_to articles_path
+    else
+      flash[:alert] = 'Article could not be deleted'
+      redirect_to 'show'
+    end
+  end
+
   private
 
   # sets the article based on id sent in url params

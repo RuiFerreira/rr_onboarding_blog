@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # "dependent: :destroy" ensures cascade deletion of all of the deleted user's articles
+  has_many :articles, dependent: :destroy
   # define enum, default value is 0
   enum status: {
     enabled: 0,

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RrOnboardingBlog</title>
+    <title>RROnboardingBlog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,6 +12,8 @@
 
   <body>
     <%= render 'layouts/navigation' %>
+    <%# flash messages shared component are added to every page in the application %>
+    <%= render 'shared/flash_messages' %> 
     <%= yield %>
   </body>
 </html>

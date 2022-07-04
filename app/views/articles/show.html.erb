@@ -1,0 +1,6 @@
+<h4><%= @article.title %></h4>
+<p><%= @article.body %></p>
+<p>Written by <%= @article.user.username %><br/>Posted <%= time_ago_in_words(@article.created_at) %> ago</p>
+
+<%= link_to 'Edit', edit_article_path(@article) %>
+<%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"} %>

@@ -1,1 +1,23 @@
-<h1>Article listing placeholder</h1>
+<h1>Articles</h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Status</th>
+    <th>User</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% @articles.each do |article|%>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.body %></td>
+      <td><%= article.status %></td>
+      <td><%= article.user.username %></td>
+      <td><%= link_to 'View', article_path(article) %></td>
+      <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <td><%= link_to 'Delete', article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"} %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'Create article', new_article_path%>

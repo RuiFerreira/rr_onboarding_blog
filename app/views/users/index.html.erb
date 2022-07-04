@@ -8,8 +8,7 @@
   <span>Joined <%= time_ago_in_words(user.created_at) %> ago</span><br/>
   <%= link_to 'View', user_path(user) %>
   <%= link_to 'Edit', edit_user_path(user) %>
-  <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: "Confirm deletion of User \"#{user.username}\"?"} %>
-  <br/>
+
   <br/>
   <br/>
 <% end %>

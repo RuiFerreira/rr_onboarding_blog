@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  def show
-    @user = User.find(params[:id])
-  end
+  before_action :set_user, only: %I[show edit update destroy]
+  def show; end
 
   def index
     @users = User.all
@@ -21,7 +20,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @user.update(user_params)
+      flash[:notice] = 'Profile edited successfully'
+      redirect_to user_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    if @user.destroy
+      # TODO: end session here when implemented
+      flash[:notice] = 'User successfully deleted'
+      redirect_to root_path
+    else
+      flash[:alert] = 'User could not be deleted'
+      redirect_to 'show'
+    end
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:username, :email)

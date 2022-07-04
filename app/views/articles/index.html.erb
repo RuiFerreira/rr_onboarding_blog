@@ -14,6 +14,7 @@
       <td><%= article.body %></td>
       <td><%= article.status %></td>
       <td><%= article.user.username %></td>
+      <td><%= link_to 'View', article_path(article) %></td>
       <td><%= link_to 'Edit', edit_article_path(article) %></td>
       <td><%= link_to 'Delete', article_path(article), method: :delete, data: { confirm: 'Confirm deletion of article "#{article.title.capitalize}"?'} %></td>
     </tr>

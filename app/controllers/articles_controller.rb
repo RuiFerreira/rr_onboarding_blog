@@ -1,4 +1,8 @@
 class ArticlesController < ApplicationController
+  def show
+    @article = Article.find(params[:id])
+  end
+
   def index
     @articles = Article.all
   end
@@ -8,7 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(get_article_params)
+    @article = Article.new(article_params)
     # we hardcode the user the article belongs to at first
     # TODO: add user to article based on session
     @article.user = User.first
@@ -20,10 +24,10 @@ class ArticlesController < ApplicationController
     end
   end
 
-
   private
+
   # gets article params from update and create form submitions
-  def get_article_params
-    params.require(:article).permit(:title, :body, :user_id)
+  def article_params
+    params.require(:article).permit(:title, :body)
   end
 end

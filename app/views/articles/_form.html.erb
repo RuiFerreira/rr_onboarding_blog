@@ -1,5 +1,5 @@
 <%# local stops form submittion using ajax requests which is the default behaviour %>
-<%= render 'shared/form_errors' %>
+<%= render 'shared/form_errors', failed_operation: @article %>
 <%= form_with(model: @article, local: true) do |new_article| %>
   <%= new_article.label :title %><br/>
   <%= new_article.text_field :title, placeholder: "Title of your article" %><br/>

@@ -1,0 +1,8 @@
+<h4><%= @user.username %>'s Profile</h4>
+<p><%= @user.email %></p>
+<p>Authored <%= @user.articles.length %> posts</p>
+<p>Joined <%= time_ago_in_words(@user.created_at) %> ago</p>
+
+<%# TODO: restrict these actions to the specific user's session %>
+<%= link_to 'Edit', edit_user_path(@user) %>
+<%= link_to 'Delete', article_path(@user), method: :delete, data: { confirm: "Confirm deletion of User \"#{@user.username}\"?"} %>

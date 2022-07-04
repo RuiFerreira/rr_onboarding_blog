@@ -1,0 +1,12 @@
+<%# local stops form submittion using ajax requests which is the default behaviour %>
+<%= render 'shared/form_errors', failed_operation: @user %>
+<%= form_with(model: @user, local: true) do |new_user| %>
+  <%= new_user.label :username %><br/>
+  <%= new_user.text_field :username, placeholder: "Choose a username" %><br/>
+  <br/>
+  <%= new_user.label :email %><br/>
+  <%= new_user.text_field :email, placeholder: "Enter your email" %><br/>
+  <br/>
+  <br/>
+  <%= new_user.submit %>
+<% end %>

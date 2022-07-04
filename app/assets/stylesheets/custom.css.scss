@@ -3,3 +3,13 @@
   height:auto;
   max-height: 5vh;
 }
+
+#homepage_banner_container {
+  min-height: 70vh;
+}
+
+// helper classes
+.vertical-center {
+  display:flex;
+  align-items:center;
+}

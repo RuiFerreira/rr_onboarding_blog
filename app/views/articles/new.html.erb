@@ -1,12 +1,2 @@
-<%# local stops form submittion using ajax requests which is the default behaviour %>
-<%= form_with(model: @article, local: true) do |new_article| %>
-  <%= new_article.label :title %><br/>
-  <%= new_article.text_field :title, placeholder: "Title of your article" %><br/>
-  <br/>
-  <%= new_article.label :body %><br/>
-  <%= new_article.text_area :body, rows:10, placeholder: "Write the body of your article" %><br/>
-  <br/>
-  <br/>
-  <%= new_article.submit %>
-
-<% end %>
+<h2>Create new article</h2>
+<%= render 'form' %>

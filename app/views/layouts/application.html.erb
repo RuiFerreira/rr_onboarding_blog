@@ -12,8 +12,11 @@
 
   <body>
     <%= render 'layouts/navigation' %>
-    <%# flash messages shared component are added to every page in the application %>
+    <%# flash messages shared component is added to every page in the application %>
     <%= render 'shared/flash_messages' %> 
-    <%= yield %>
+    <%# adds a margin to page content %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

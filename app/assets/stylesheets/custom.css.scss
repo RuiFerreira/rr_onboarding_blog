@@ -1,0 +1,61 @@
+//Set the color coding for article status
+.article-status-badge-draft {
+  background-color: #0d6efd !important;
+}
+
+.article-status-badge-pending {
+  background-color: #ffc107 !important;
+}
+
+.article-status-badge-live {
+  background-color: #198754 !important;
+}
+
+.brand-logo {
+  width:auto;
+  height:auto;
+  max-height: 5vh;
+}
+
+#homepage_banner_container {
+  min-height: 70vh;
+}
+
+.authors-list {
+  min-height: 50vh;
+}
+
+.author-card-description {
+  //lock height for email since bootstrap cards do not fill missing col height
+  min-height: 48px; 
+}
+
+.no-avatar-image {
+  width: 70%;
+  margin: auto;
+}
+
+.article-title {
+  text-decoration: none;
+}
+.article-body-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.action-icons {
+  text-decoration: none;
+  font-size: 1.3em;
+  color: #284F93;
+}
+
+// helper classes
+.page-content {
+  margin-top: 5vh;
+  min-height: 60vh;
+}
+
+.vertical-center {
+  display:flex;
+  align-items:center;
+}

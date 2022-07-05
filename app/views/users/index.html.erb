@@ -1,15 +1,36 @@
-<h1>Authors</h1>
-<% @users.each do |user| %>
-  <span>Username: <%= user.username %></span><br/>
-  <%# TODO: bad idea to show email, add a share_info boolean which can be toggled in a settings screen
-      by toggling the user accepts to make his email public, then we just do conditional rendering here
-  %>
-  <span>Email: <%= user.email %></span><br/>
-  <span>Joined <%= time_ago_in_words(user.created_at) %> ago</span><br/>
-  <%= link_to 'View', user_path(user) %>
-  <%= link_to 'Edit', edit_user_path(user) %>
+<div class="page-content container">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h2>Authors</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center authors-list vertical-center">
+    <% @users.each do |user| %>
+      <div class="col-12 col-md-auto  m-2 py-2 card" style="width: 18rem;">
+        <%= image_tag("no_avatar.png", :alt => "user avatar", :class=> "card-img-top no-avatar-image") %>
 
-  <br/>
-  <br/>
-<% end %>
-<br/>
+        <div class="card-body pb-0">
+          <h5 class="card-title"><small>Username: <%= user.username %></small></h5>
+          <p class="card-text">
+            <%# TODO: bad idea to show email, add a share_info boolean which can be toggled in a settings screen
+                by toggling the user accepts to make his email public, then we just do conditional rendering here
+            %>
+            <div class="author-card-description"><small><strong>Email:</strong> <%= user.email %></small></div>
+            <hr class="mt-0 mb-1">
+            <%# TODO: add link to user articles page %>
+            <small>Authored <%= user.articles.length %> articles</small><br/>
+            <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
+          </p>
+        </div>
+        <div class="card-body py-0">
+          <div class="row justify-content-end">
+            <%= link_to fa_icon('eye'), user_path(user), class: "action-icons col-auto" %>
+            <%= link_to fa_icon('edit'), edit_user_path(user), class: "action-icons col-auto" %>
+          </div>
+          
+        </div>
+      </div>
+    <% end %>
+    <br/>
+  </div>
+</div>

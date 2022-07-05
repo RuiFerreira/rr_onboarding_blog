@@ -1,12 +1,29 @@
 <%# local stops form submittion using ajax requests which is the default behaviour %>
 <%= render 'shared/form_errors', failed_operation: @user %>
-<%= form_with(model: @user, local: true) do |new_user| %>
-  <%= new_user.label :username %><br/>
-  <%= new_user.text_field :username, placeholder: "Choose a username" %><br/>
-  <br/>
-  <%= new_user.label :email %><br/>
-  <%= new_user.text_field :email, placeholder: "Enter your email" %><br/>
-  <br/>
-  <br/>
-  <%= new_user.submit %>
+<%= form_with(model: @user, local: true, class: "w-100") do |new_user| %>
+  <div class="row my-4 w-100">
+    <div class="col-4">
+      <%= new_user.label :username, class: "form-label" %>
+    </div>
+    <div class="col-8">
+      <%= new_user.text_field :username, placeholder: "Choose a username", class: "form-control" %>
+    </div>
+  </div>
+  <div class="row my-4 w-100">
+    <div class="col-4">
+      <%= new_user.label :email, class: "form-label" %>
+    </div>
+    <div class="col-8">
+      <%= new_user.text_field :email, placeholder: "Enter your email", class: "form-control" %>
+    </div>
+  </div>
+  <div class="row mt-4 w-100 justify-content-center">
+    <div class="col-auto">
+    
+      <%= new_user.submit(@user.new_record? ? "Signup" : "Update profile", class: "btn btn-secondary") %>
+    </div>
+    <div class="col-auto">
+      <%= link_to 'Cancel', users_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 <% end %>

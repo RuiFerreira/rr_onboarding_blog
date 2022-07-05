@@ -1,8 +1,15 @@
-<% flash.each do |name, msg| %>
-<%# TODO: add name to message preview, 
+<%#
       possible names are now :
       notice: Gives notice of successful operations
       alert: Gives notice of errors in operations
+
+      container is invisible until messages are added to list
 %>
-  <%= msg %>
-<% end %>
+<div class="container">
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name == "notice" ? "success" : "danger" %> alert-dismissible fade show" role="alert">
+      <%= msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+</div>

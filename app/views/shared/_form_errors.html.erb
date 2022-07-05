@@ -1,3 +1,13 @@
-<% failed_operation.errors.full_messages.each do |message| %>
-  <p><%= message %></p>
+
+<% if failed_operation.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">The following errors prevented the form from submitting</h4>
+    <ul>
+      <% failed_operation.errors.full_messages.each do |message| %>
+        <li class="small"><%= message %></li>
+      <% end %>
+    </ul>
+    <hr>
+    <p class="mb-0">Please fix them to continue.</p>
+  </div>
 <% end %>

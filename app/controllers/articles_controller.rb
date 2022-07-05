@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %I[show edit update destroy]
+  before_action :enabled_users, only: %I[new edit]
 
   def show; end
 
@@ -13,13 +14,12 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    # we hardcode the user the article belongs to at first
     # TODO: add user to article based on session
-    @article.user = User.first
     if @article.save
       flash[:notice] = 'Article successfully created'
       redirect_to @article
     else
+      @users = enabled_users # not in before action so it only triggers when needed
       render 'new'
     end
   end
@@ -31,6 +31,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
+      @users = enabled_users
       render 'edit'
     end
   end
@@ -55,6 +56,10 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, :user_id)
+  end
+
+  def enabled_users
+    @users = User.enabled
   end
 end

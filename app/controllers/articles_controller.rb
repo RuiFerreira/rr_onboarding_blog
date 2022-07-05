@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully created'
       redirect_to @article
     else
-      @users = User.all
+      @users = User.enabled
       render 'new'
     end
   end
@@ -34,6 +34,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
+      @users = User.enabled
       render 'edit'
     end
   end

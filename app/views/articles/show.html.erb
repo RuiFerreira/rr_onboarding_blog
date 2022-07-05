@@ -1,6 +1,24 @@
-<h4><%= @article.title %></h4>
-<p><%= @article.body %></p>
-<p>Written by <%= @article.user.username %><br/>Posted <%= time_ago_in_words(@article.created_at) %> ago</p>
 
-<%= link_to 'Edit', edit_article_path(@article) %>
-<%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"} %>
+<div class="page-content row justify-content-center">
+  <div class="col-12 col-md-11 h-100 p-5">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h2><%= @article.title %></h2>
+      </div>
+      <div class="col text-left vertical-center">
+        <span class="badge rounded-pill article-status-badge-<%= @article.status %> px-2 py-1"><%= @article.status %></span>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-10">
+        <p class="article-body-text"><%= @article.body %></p>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-4 mt-4">
+        <small class="float-end">Written by: <%= @article.user.username %></small><br/>
+        <small class="float-end"><%= time_ago_in_words(@article.created_at) %> ago</small><br/>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,10 +24,15 @@
 .article-title {
   text-decoration: none;
 }
+.article-body-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 .action-icons {
   text-decoration: none;
   font-size: 1.3em;
+  color: #284F93;
 }
 
 // helper classes

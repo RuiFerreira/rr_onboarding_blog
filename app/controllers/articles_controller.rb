@@ -27,6 +27,8 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
+    # not saved if fail so we can always increment
+    @article.edition_counter += 1 
     if @article.update(article_params)
       flash[:notice] = 'Article successfully edited'
       redirect_to @article

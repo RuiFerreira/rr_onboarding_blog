@@ -19,7 +19,11 @@
   </div>
   <div class="row mt-4 w-100 justify-content-center">
     <div class="col-auto">
-      <%= new_user.submit "Sign up",  class: "btn btn-outline-secondary" %>
+    
+      <%= new_user.submit(@user.new_record? ? "Signup" : "Update profile", class: "btn btn-secondary") %>
+    </div>
+    <div class="col-auto">
+      <%= link_to 'Cancel', users_path, class: "btn btn-outline-secondary" %>
     </div>
   </div>
 <% end %>

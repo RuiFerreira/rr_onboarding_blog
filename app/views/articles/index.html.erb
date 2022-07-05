@@ -16,6 +16,12 @@
         </div>
       </div>
       <div class="row mt-4 justify-content-end">
+        <% if article.edition_counter > 0 %>
+          <div class="col text-left">
+            <small>Edited <%= article.edition_counter %> times</small><br/>
+            <small>Last edited <%= time_ago_in_words(article.updated_at) %> ago</small><br/>
+          </div>
+        <% end %>
         <div class="col-auto text-center vertical-center">
           <span class="badge rounded-pill article-status-badge-<%= article.status %> px-2 py-1"><%= article.status %></span>
 

@@ -22,7 +22,6 @@
       <%= new_article.label :user, "Author", class: "form-label" %>
     </div>
     <div class="col-12">
-    <%# Why do i need this {} ? without it it will not accept the class %>
       <%# <%= select_tag "article[user_id]", options_for_select(@users.map { |u| [u.username, u.id]}), class: "form-control" \%\> %>
       <%= new_article.select :user_id, @users.map { |u| [u.username, u.id]}, {
         selected: new_article.object.user_id || "",

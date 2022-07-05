@@ -20,5 +20,13 @@
         <small class="float-end"><%= time_ago_in_words(@article.created_at) %> ago</small><br/>
       </div>
     </div>
+    <div class="row mt-2 justify-content-end">
+      <div class="col-auto">
+        <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+      </div>
+      <div class="col-auto">
+        <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
+      </div>
+    </div>
   </div>
 </div>

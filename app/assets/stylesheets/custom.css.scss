@@ -21,6 +21,20 @@
   min-height: 70vh;
 }
 
+.authors-list {
+  min-height: 50vh;
+}
+
+.author-card-description {
+  //lock height for email since bootstrap cards do not fill missing col height
+  min-height: 48px; 
+}
+
+.no-avatar-image {
+  width: 70%;
+  margin: auto;
+}
+
 .article-title {
   text-decoration: none;
 }

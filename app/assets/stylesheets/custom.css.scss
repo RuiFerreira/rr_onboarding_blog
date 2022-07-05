@@ -8,12 +8,16 @@
   min-height: 70vh;
 }
 
+.article-title {
+  text-decoration: none;
+}
+
+// helper classes
 .page-content {
   margin-top: 5vh;
   min-height: 60vh;
 }
 
-// helper classes
 .vertical-center {
   display:flex;
   align-items:center;

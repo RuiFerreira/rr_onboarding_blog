@@ -4,7 +4,7 @@
     <h2>Articles</h2>
   </div>
   <% @articles.each do |article|%>
-    <div class="col-12 col-md-7 h-100 p-5 bg-light border rounded-3 my-2">
+    <div class="col-12 col-md-7 h-100 pt-5 px-5 pb-3 bg-light border rounded-3 my-2">
       <div class="row">
         <div class="col-auto">
           <h4><%= link_to article.title, article_path(article), class: 'article-title text-dark' %></h4>
@@ -15,18 +15,22 @@
           <p><%= article.body %></p>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-3 text-center">
-          <p><%= article.status %></p>
+      <div class="row mt-4 justify-content-end">
+        <div class="col-auto text-center vertical-center">
+          <span class="badge rounded-pill article-status-badge-<%= article.status %> px-2 py-1"><%= article.status %></span>
+
         </div>
-        <div class="col">
-          Written by: <%= article.user.username %>
+        <div class="col-4">
+          <small class="float-end">Written by: <%= article.user.username %></small><br/>
+          <small class="float-end"><%= time_ago_in_words(article.created_at) %> ago</small><br/>
         </div>
-        <div class="col-2">
-          <%= link_to 'Edit', edit_article_path(article) %>
+      </div>
+      <div class="row mt-2 justify-content-end">
+        <div class="col-auto offset-1">
+          <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
         </div>
-        <div class="col-2">
-          <%= link_to 'Delete', article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"} %>
+        <div class="col-auto">
+          <%= link_to fa_icon('trash'), article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"}, class: "action-icons" %>
         </div>
       </div>
     </div>

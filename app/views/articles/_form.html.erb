@@ -17,6 +17,20 @@
       <%= new_article.text_area :body, rows:10, placeholder: "Write the body of your article", class: "form-control" %>
     </div>
   </div>
+  <div class="row my-4 w-100">
+    <div class="col-auto">
+      <%= new_article.label :user, "Author", class: "form-label" %>
+    </div>
+    <div class="col-12">
+    <%# Why do i need this {} ? without it it will not accept the class %>
+      <%# <%= select_tag "article[user_id]", options_for_select(@users.map { |u| [u.username, u.id]}), class: "form-control" \%\> %>
+      <%= new_article.select :user_id, @users.map { |u| [u.username, u.id]}, {
+        selected: new_article.object.user_id || "",
+        disabled: "",
+        prompt: 'Please select user'
+        }, class: "form-control" %>
+    </div>
+  </div>
   <div class="row mt-4 w-100 justify-content-center">
     <div class="col-auto">
       <%= new_article.submit class: "btn btn-outline-secondary" %>

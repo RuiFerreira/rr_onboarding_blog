@@ -1,12 +1,26 @@
 <%# local stops form submittion using ajax requests which is the default behaviour %>
 <%= render 'shared/form_errors', failed_operation: @article %>
-<%= form_with(model: @article, local: true) do |new_article| %>
-  <%= new_article.label :title %><br/>
-  <%= new_article.text_field :title, placeholder: "Title of your article" %><br/>
-  <br/>
-  <%= new_article.label :body %><br/>
-  <%= new_article.text_area :body, rows:10, placeholder: "Write the body of your article" %><br/>
-  <br/>
-  <br/>
-  <%= new_article.submit %>
+<%= form_with(model: @article, local: true, class: "w-100") do |new_article| %>
+  <div class="row my-4 w-100">
+    <div class="col-auto">
+      <%= new_article.label :title, class: "form-label" %>
+    </div>
+    <div class="col-12">
+      <%= new_article.text_field :title, placeholder: "Title of your article", class: "form-control" %>
+    </div>
+  </div>
+  <div class="row my-4 w-100">
+    <div class="col-auto">
+      <%= new_article.label :body, class: "form-label" %>
+    </div>
+    <div class="col-12">
+      <%= new_article.text_area :body, rows:10, placeholder: "Write the body of your article", class: "form-control" %>
+    </div>
+  </div>
+  <div class="row mt-4 w-100 justify-content-center">
+    <div class="col-auto">
+      <%= new_article.submit class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 <% end %>
+

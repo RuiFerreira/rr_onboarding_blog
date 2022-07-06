@@ -5,7 +5,13 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @articles = Article.all
+    # main article listing page will only list Live and Draft articles or only Live articles based on
+    # all = true param
+    @articles = if params[:all]
+                  Article.user_live_articles
+                else
+                  Article.live
+                end
   end
 
   def new
@@ -28,7 +34,7 @@ class ArticlesController < ApplicationController
 
   def update
     # not saved if fail so we can always increment
-    @article.edition_counter += 1 
+    @article.edition_counter += 1
     if @article.update(article_params)
       flash[:notice] = 'Article successfully edited'
       redirect_to @article

@@ -33,14 +33,16 @@
         </div>
       <% end %>
       <%# edit feature is only available if the articles are not LIVE%>
-      <% if !@article.live? %>
+      <% if current_user == @article.user%>
+        <% if !@article.live? %>
+          <div class="col-auto">
+            <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+          </div>
+        <% end %>
         <div class="col-auto">
-          <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+          <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
         </div>
       <% end %>
-      <div class="col-auto">
-        <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
-      </div>
     </div>
   </div>
 </div>

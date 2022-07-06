@@ -23,15 +23,18 @@
             <li><%= link_to "Create Article", new_article_path, class: "dropdown-item" %></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <%= link_to 'Sign up', signup_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Sign in', login_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
-        </li>
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign up', signup_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign in', login_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

@@ -58,17 +58,13 @@ class ArticlesController < ApplicationController
     end
   end
 
-
   def submit_draft
-    if @article.draft?
-      if @article.update(status: :pending)
-        flash[:notice] = 'Article successfully submitted. Please await its review'
-        redirect_to @article
-      else
-        flash[:alert] = 'Article could not be submitted'
-        redirect_to @article
-      end
+    if @article.draft? && @article.update(status: :pending)
+      flash[:notice] = 'Article successfully submitted. Please await its review'
+    else
+      flash[:alert] = 'Article could not be submitted'
     end
+    redirect_to @article
   end
 
   private

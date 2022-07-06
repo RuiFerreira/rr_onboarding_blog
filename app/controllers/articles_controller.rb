@@ -14,6 +14,10 @@ class ArticlesController < ApplicationController
                 end
   end
 
+  def pending
+    @articles = Article.user_pending_articles
+  end
+
   def new
     @article = Article.new
   end

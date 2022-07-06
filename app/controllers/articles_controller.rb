@@ -6,17 +6,11 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    # main article listing page will only list Live and Draft articles or only Live articles based on
-    # all = true param
-    @articles = if params[:all]
-                  Article.user_live_articles
-                else
-                  Article.live
-                end
+    @articles = Article.user_live_articles(current_user)
   end
 
   def pending
-    @articles = Article.user_pending_articles
+    @articles = Article.articles_user_can_review(current_user)
   end
 
   def new

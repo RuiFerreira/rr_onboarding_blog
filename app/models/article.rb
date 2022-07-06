@@ -8,4 +8,8 @@ class Article < ApplicationRecord
 
   validates :title, presence: true, length: { minimum: 6, maximum: 100 }
   validates :body, presence: true, length: { minimum: 20, maximum: 1000 }
+
+  scope :user_drafted_articles, -> { draft } # TODO: add where user id IS session user id here
+  scope :user_live_articles, -> { user_drafted_articles.or(Article.live) }
+  scope :user_pending_articles, -> { pending } # TODO: add where user id not session user id here
 end

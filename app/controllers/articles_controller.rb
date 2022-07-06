@@ -1,11 +1,21 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %I[show edit update destroy]
+  before_action :set_article, only: %I[show edit update destroy submit_draft]
   before_action :enabled_users, only: %I[new edit]
 
   def show; end
 
   def index
-    @articles = Article.all
+    # main article listing page will only list Live and Draft articles or only Live articles based on
+    # all = true param
+    @articles = if params[:all]
+                  Article.user_live_articles
+                else
+                  Article.live
+                end
+  end
+
+  def pending
+    @articles = Article.user_pending_articles
   end
 
   def new
@@ -28,8 +38,8 @@ class ArticlesController < ApplicationController
 
   def update
     # not saved if fail so we can always increment
-    @article.edition_counter += 1 
-    if @article.update(article_params)
+    @article.edition_counter += 1
+    if @article.update(article_params) && !@article.live?
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
@@ -46,6 +56,15 @@ class ArticlesController < ApplicationController
       flash[:alert] = 'Article could not be deleted'
       redirect_to 'show'
     end
+  end
+
+  def submit_draft
+    if @article.draft? && @article.update(status: :pending)
+      flash[:notice] = 'Article successfully submitted. Please await its review'
+    else
+      flash[:alert] = 'Article could not be submitted'
+    end
+    redirect_to @article
   end
 
   private

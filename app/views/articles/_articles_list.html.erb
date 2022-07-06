@@ -1,0 +1,41 @@
+<% @articles.each do |article|%>
+  <div class="col-12 col-md-7 h-100 pt-5 px-5 pb-3 bg-light border rounded-3 my-2">
+    <div class="row">
+      <div class="col-auto">
+        <h4><%= link_to article.title, article_path(article), class: 'article-title text-dark' %></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p><%= article.body %></p>
+      </div>
+    </div>
+    <div class="row mt-4 justify-content-end">
+      <% if article.edition_counter > 0 %>
+        <div class="col text-left">
+          <small>Edited <%= article.edition_counter %> times</small><br/>
+          <small>Last edited <%= time_ago_in_words(article.updated_at) %> ago</small><br/>
+        </div>
+      <% end %>
+      <div class="col-auto text-center vertical-center">
+        <span class="badge rounded-pill article-status-badge-<%= article.status %> px-2 py-1"><%= article.status %></span>
+
+      </div>
+      <div class="col-4">
+        <small class="float-end">Written by: <%= article.user.username %></small><br/>
+        <small class="float-end"><%= time_ago_in_words(article.created_at) %> ago</small><br/>
+      </div>
+    </div>
+    <%# show next block only if user == session user %>
+    <div class="row mt-2 justify-content-end">
+      <% if !article.live? %>
+        <div class="col-auto">
+          <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
+        </div>
+      <% end %>
+      <div class="col-auto">
+        <%= link_to fa_icon('trash'), article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"}, class: "action-icons" %>
+      </div>
+    </div>
+  </div>
+<% end %>

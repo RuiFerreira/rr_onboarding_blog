@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %I[show edit update destroy submit_draft]
+  before_action :set_article, only: %I[show edit update destroy submit_draft approve]
   before_action :enabled_users, only: %I[new edit]
   before_action :validate_session, except: %I[show]
 
@@ -58,6 +58,15 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully submitted. Please await its review'
     else
       flash[:alert] = 'Article could not be submitted'
+    end
+    redirect_to @article
+  end
+
+  def approve
+    if @article.pending? && @article.update(status: :live)
+      flash[:notice] = 'Article successfully reviewed.'
+    else
+      flash[:alert] = 'Article could not be reviewed'
     end
     redirect_to @article
   end

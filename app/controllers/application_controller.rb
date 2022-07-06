@@ -9,4 +9,11 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !!current_user
   end
+
+  def validate_session
+    if !logged_in?
+      redirect_to login_path
+      flash[:alert] = 'Please log in to keep browsing!'
+    end
+  end
 end

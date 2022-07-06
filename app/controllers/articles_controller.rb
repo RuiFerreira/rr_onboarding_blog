@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %I[show edit update destroy]
+  before_action :set_article, only: %I[show edit update destroy submit_draft]
   before_action :enabled_users, only: %I[new edit]
 
   def show; end
@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
   def update
     # not saved if fail so we can always increment
     @article.edition_counter += 1
-    if @article.update(article_params)
+    if @article.update(article_params) && !@article.live?
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
@@ -55,6 +55,19 @@ class ArticlesController < ApplicationController
     else
       flash[:alert] = 'Article could not be deleted'
       redirect_to 'show'
+    end
+  end
+
+
+  def submit_draft
+    if @article.draft?
+      if @article.update(status: :pending)
+        flash[:notice] = 'Article successfully submitted'
+        redirect_to @article
+      else
+        flash[:alert] = 'Article could not be submitted'
+        redirect_to @article
+      end
     end
   end
 

@@ -28,9 +28,11 @@
     </div>
     <%# show next block only if user == session user %>
     <div class="row mt-2 justify-content-end">
-      <div class="col-auto">
-        <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
-      </div>
+      <% if !article.live? %>
+        <div class="col-auto">
+          <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
+        </div>
+      <% end %>
       <div class="col-auto">
         <%= link_to fa_icon('trash'), article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"}, class: "action-icons" %>
       </div>

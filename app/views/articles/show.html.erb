@@ -27,9 +27,17 @@
       </div>
     </div>
     <div class="row mt-2 justify-content-end">
-      <div class="col-auto">
-        <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
-      </div>
+      <% if @article.draft? %>
+        <div class="col-auto">
+          <%= link_to fa_icon('upload'), submit_draft_path_url(@article), class: "action-icons", method: :put %>
+        </div>
+      <% end %>
+      <%# edit feature is only available if the articles are not LIVE%>
+      <% if !@article.live? %>
+        <div class="col-auto">
+          <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+        </div>
+      <% end %>
       <div class="col-auto">
         <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
       </div>

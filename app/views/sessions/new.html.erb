@@ -1,0 +1,39 @@
+<div class="page-content row justify-content-center">
+  <div class="col-12 col-md-7 h-100 p-5 bg-light border rounded-3">
+    <div class="signup-title">
+      <h2 class="text-center">Login</h2>
+    </div>
+    <%# local stops form submittion using ajax requests which is the default behaviour %>
+    <%= form_with(scope: :session, url: login_path, local: true, class: "w-100") do |f| %>
+      <div class="row justify-content-center my-4 w-100">
+        <div class="col-4 col-md-2">
+          <%= f.label :email, class: "form-label" %>
+        </div>
+        <div class="col-8 col-md-6">
+          <%= f.text_field :email, placeholder: "Enter your email", class: "form-control" %>
+        </div>
+      </div>
+      <div class="row justify-content-center my-4 w-100">
+        <div class="col-4 col-md-2">
+          <%= f.label :password, class: "form-label" %>
+        </div>
+        <div class="col-8 col-md-6">
+          <%= f.password_field :password, placeholder: "Enter your password", class: "form-control" %>
+        </div>
+      </div>
+      <div class="row mt-4 w-100 justify-content-center">
+        <div class="col-auto">
+        
+          <%= f.submit "Login", class: "btn btn-secondary" %>
+        </div>
+        <div class="col-auto">
+          <%= link_to 'Cancel', root_path, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+

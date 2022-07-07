@@ -1,10 +1,11 @@
 class TagsController < ApplicationController
+  before_action :set_tag, only: %I[show edit update]
   def index
     @tags = Tag.all
   end
 
   def show
-    @tag = Tag.find(params[:id])
+    set_tag
   end
 
   def new
@@ -23,11 +24,22 @@ class TagsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    if @tag.update(tag_params)
+      flash[:notice] = 'Tag edited successfully'
+      redirect_to tag_path
+    else
+      render 'edit'
+    end
+  end
 
   def destroy; end
 
   private
+
+  def set_tag
+    @tag = Tag.find(params[:id])
+  end
 
   def tag_params
     params.require(:tag).permit(:name)

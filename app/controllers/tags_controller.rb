@@ -1,11 +1,7 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: %I[show edit update]
+  before_action :set_tag, only: %I[edit update destroy]
   def index
     @tags = Tag.all
-  end
-
-  def show
-    set_tag
   end
 
   def new
@@ -16,7 +12,7 @@ class TagsController < ApplicationController
     @tag = Tag.new(tag_params)
     if @tag.save
       flash[:notice] = 'Tag was successfully created'
-      redirect_to @tag
+      redirect_to tags_path
     else
       render 'new'
     end
@@ -27,13 +23,22 @@ class TagsController < ApplicationController
   def update
     if @tag.update(tag_params)
       flash[:notice] = 'Tag edited successfully'
-      redirect_to tag_path
+      redirect_to tags_path
     else
       render 'edit'
     end
   end
 
-  def destroy; end
+  def destroy
+    if @tag.destroy
+      # TODO: end session here when implemented
+      flash[:notice] = 'Tag successfully deleted'
+      redirect_to tags_path
+    else
+      flash[:alert] = 'Tag could not be deleted'
+      redirect_to 'show'
+    end
+  end
 
   private
 

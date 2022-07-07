@@ -2,10 +2,10 @@
 <div class="page-content row justify-content-center">
   <div class="col-12 col-md-11 h-100">
     <div class="row justify-content-center">
-      <div class="col-auto">
+      <div class="col-auto text-left">
         <h2><%= @article.title %></h2>
       </div>
-      <div class="col-auto px-2 text-left vertical-center">
+      <div class="col px-2 text-left vertical-center">
         <span class="badge rounded-pill article-status-badge-<%= @article.status %> px-2 py-1"><%= @article.status %></span>
       </div>
       <% if current_user != @article.user && @article.pending?  %>
@@ -14,6 +14,9 @@
         </div>
       <% end %>
     </div>
+    <% if !@article.tags.empty? %>
+      <%= render 'article_tags', obj: @article %>
+    <% end %>
     <div class="row my-4">
       <div class="col-12 col-md-10">
         <p class="article-body-text"><%= @article.body %></p>

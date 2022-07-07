@@ -10,6 +10,9 @@
         <p><%= article.body %></p>
       </div>
     </div>
+    <% if !article.tags.empty? %>
+      <%= render 'article_tags', obj: article %>
+    <% end %>
     <div class="row mt-4 justify-content-end">
       <% if article.edition_counter > 0 %>
         <div class="col text-left">

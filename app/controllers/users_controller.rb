@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %I[show edit update destroy]
   before_action :validate_session, only: %I[edit update]
   def show
-    @articles = User.find(params[:id]).articles
+    @articles = User.find(params[:id]).articles.live
   end
 
   def index

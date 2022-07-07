@@ -7,11 +7,11 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <p><%= article.body %></p>
+        <p><%= truncate(article.body, length: 150) %></p>
       </div>
     </div>
     <% if !article.tags.empty? %>
-      <%= render 'article_tags', obj: article %>
+      <%= render 'articles/article_tags', obj: article %>
     <% end %>
     <div class="row mt-4 justify-content-end">
       <% if article.edition_counter > 0 %>

@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: %I[edit update destroy]
+  before_action :validate_session
   def index
     @tags = Tag.all
   end

@@ -31,5 +31,9 @@
         Joined <%= time_ago_in_words(@user.created_at) %> ago
       </div>
     </div>
+    <div class="row mt-4 justify-content-center">
+      <h2 class="mb-4 text-center"><%= @user.username %>'s Articles</h2>
+      <%= render 'articles/articles_list' %>
+    </div>
   </div>
 </div>

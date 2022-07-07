@@ -17,6 +17,17 @@
       <%= new_article.text_area :body, rows:10, placeholder: "Write the body of your article", class: "form-control" %>
     </div>
   </div>
+  <div class="row my-4 w-100">
+    <div class="col-auto">
+      <%= new_article.label :tag, 'Tags (optional)', class: "form-label" %>
+    </div>
+    <div class="col-12">
+      <%= new_article.collection_select(:tag_ids, Tag.all, :id, :name,
+      {},
+      {multiple: true, size: 4,class: "form-select"}) %>
+    </div>
+  </div>
+
   <div class="row mt-4 w-100 justify-content-end">
     <div class="col-auto">
       <%= new_article.submit class: "btn btn-secondary" %>

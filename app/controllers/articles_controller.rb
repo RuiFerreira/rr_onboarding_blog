@@ -81,7 +81,7 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, tag_ids: [])
   end
 
   def enabled_users

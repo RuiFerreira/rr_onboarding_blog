@@ -2,9 +2,9 @@
   <div class="col-12 col-md-10 h-100">
     <div class="row justify-content-center">
       <div class="col-auto">
-        <h2><%= @user.username %>'s Profile  </h2>
+        <h2><%= logged_in? && current_user == @user ? 'Your ' : "#{@user.username}'s" %> Profile  </h2>
       </div>
-      <% if current_user == @user %>
+      <% if logged_in? && current_user == @user %>
         <div class="col-auto vertical-center">
           <%= link_to fa_icon('edit'), edit_user_path(@user), class: "action-icons col-auto offset-3" %>
         </div>
@@ -12,12 +12,22 @@
     </div>
     <div class="row mt-4">
       <div class="col-1">
-        <strong>Email</strong>
+        <strong>Username</strong>
       </div>
       <div class="col-auto">
-        <%= @user.email %>
+        <%= @user.username %>
       </div>
     </div>
+    <% if logged_in? && current_user == @user %>
+      <div class="row">
+        <div class="col-1">
+          <strong>Email</strong>
+        </div>
+        <div class="col-auto">
+          <%= @user.email %>
+        </div>
+      </div>
+    <% end %>
     <div class="row">
       <div class="col-1">
         <strong>Authored </strong>
@@ -33,7 +43,7 @@
     </div>
     <% if @articles.length > 0 %>
       <div class="row mt-4 justify-content-center">
-        <h2 class="mb-4 text-center"><%= @user.username %>'s Articles</h2>
+        <h2 class="mb-4 text-center"><%= logged_in? && current_user == @user ? 'Your ' : "#{@user.username}'s" %> Live Articles</h2>
         <%= render 'shared/pagination', obj: @articles %>
         <%= render 'articles/articles_list' %>
         <%= render 'shared/pagination', obj: @articles %>

@@ -1,7 +1,10 @@
-<h2>Edit your profile</h2>
-<%= render 'form' %>
-<br/>
-<br/>
-<br/>
-<%# TODO: add nice container with a button to delete the account with a confirmation %>
-<%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: "Confirm deletion of User \"#{@user.username}\"?"} %>
+<div class="page-content row justify-content-center">
+  <div class="col-12 text-center">
+    <h2>Edit your profile</h2>
+  </div>
+  <%= render 'form' %>
+  <div class="col-auto mt-4 text-center">
+    <h4>Delete your account?</h4>
+    <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: "Confirm deletion of User \"#{@user.username}\"?"}, class: "btn btn-danger" %>
+  </div>
+</div>

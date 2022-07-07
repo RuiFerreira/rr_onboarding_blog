@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %I[show edit update destroy]
   before_action :validate_session, only: %I[edit update]
   def show
-    @articles = User.find(params[:id]).articles.live
+    @articles = User.find(params[:id]).articles.live.paginate(page: params[:page], per_page: 5)
   end
 
   def index

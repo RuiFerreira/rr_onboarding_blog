@@ -34,7 +34,9 @@
     <% if @articles.length > 0 %>
       <div class="row mt-4 justify-content-center">
         <h2 class="mb-4 text-center"><%= @user.username %>'s Articles</h2>
+        <%= render 'shared/pagination', obj: @articles %>
         <%= render 'articles/articles_list' %>
+        <%= render 'shared/pagination', obj: @articles %>
       </div>
     <% end %>
   </div>

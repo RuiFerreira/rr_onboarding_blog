@@ -6,11 +6,11 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @articles = Article.user_live_articles(current_user)
+    @articles = Article.user_live_articles(current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def pending
-    @articles = Article.articles_user_can_review(current_user)
+    @articles = Article.articles_user_can_review(current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def new

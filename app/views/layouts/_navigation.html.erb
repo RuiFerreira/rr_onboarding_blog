@@ -27,6 +27,15 @@
               <li><%= link_to "Create Article", new_article_path, class: "dropdown-item" %></li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tags
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><%= link_to "View Tags", tags_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Create Tag", new_tag_path, class: "dropdown-item" %></li>
+            </ul>
+          </li>
         <% end %>
       </ul>
     </div>

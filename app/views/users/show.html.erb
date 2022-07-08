@@ -33,7 +33,7 @@
         <strong>Authored </strong>
       </div>
       <div class="col-auto">
-        <%= @user.articles.length %> posts
+        <%= @user.articles.count %> posts
       </div>
     </div>
     <div class="row">
@@ -41,7 +41,7 @@
         Joined <%= time_ago_in_words(@user.created_at) %> ago
       </div>
     </div>
-    <% if @articles.length > 0 %>
+    <% if @articles.count > 0 %>
       <div class="row mt-4 justify-content-center">
         <h2 class="mb-4 text-center"><%= logged_in? && current_user == @user ? 'Your ' : "#{@user.username}'s" %> Live Articles</h2>
         <%= render 'shared/pagination', obj: @articles %>

@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully created'
       redirect_to @article
     else
-      @users = enabled_users # not in before action so it only triggers when needed
+      enabled_users # not in before action so it only triggers when needed
       render 'new'
     end
   end
@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
-      @users = enabled_users
+      enabled_users
       render 'edit'
     end
   end

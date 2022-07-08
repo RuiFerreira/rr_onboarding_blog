@@ -6,7 +6,10 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @articles = Article.user_live_articles(current_user).paginate(page: params[:page], per_page: 5)
+    live_article_list = Article.user_live_articles(current_user) if !params[:author] && !params[:tags]
+    live_article_list = Article.filter_by_author_name(params[:author]) if params[:author]
+    # live_article_list = Article.filter_by_tags( params[:tags]) if params[:tags]
+    @articles = live_article_list.paginate(page: params[:page], per_page: 5)
   end
 
   def pending

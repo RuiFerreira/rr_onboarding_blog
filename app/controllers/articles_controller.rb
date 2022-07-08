@@ -6,9 +6,13 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    live_article_list = Article.user_live_articles(current_user) if !params[:author] && !params[:tags]
-    live_article_list = Article.filter_by_author_name(params[:author]) if params[:author]
-    # live_article_list = Article.filter_by_tags( params[:tags]) if params[:tags]
+    if !params[:author].nil? && params[:author] != ""
+      live_article_list = Article.filter_by_author_name(params[:author])
+    else
+      live_article_list = Article.user_live_articles(current_user)
+    end
+    # runs on top of either the session user's live_article_list or the author's live_article_lit
+    live_article_list = Article.filter_by_tags(params[:tags], live_article_list) if params[:tags]
     @articles = live_article_list.paginate(page: params[:page], per_page: 5)
   end
 

@@ -10,9 +10,6 @@ class Article < ApplicationRecord
     live: 2
   }
 
-  #add filter type constants
-  FILTER_TYPES = ["All", "Tags", "Authors"]
-
   validates :title, presence: true, length: { minimum: 6, maximum: 100 }
   validates :body, presence: true, length: { minimum: 20, maximum: 1000 }
 
@@ -22,7 +19,13 @@ class Article < ApplicationRecord
 
   scope :filter_by_author_name, ->(author_name) {
     user = User.where('LOWER(username) LIKE ?', "%#{author_name.downcase}%")
-    live.where(user: user) if user
+    live.where(user: user)
   }
-  
+
+  scope :filter_by_tags, ->(tag_names, article_list) {
+    tags = Tag.where(name: tag_names)
+    article_tags = ArticleTag.where(tag_id: tags).where(article_id: article_list)
+    article_list.where(article_tags: article_tags)
+  }
+
 end

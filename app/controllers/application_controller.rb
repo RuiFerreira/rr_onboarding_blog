@@ -16,4 +16,11 @@ class ApplicationController < ActionController::Base
       flash[:alert] = 'Please log in to keep browsing!'
     end
   end
+
+  def validate_self_edition_access(user)
+    if user != current_user
+      flash[:alert] = 'You have no access to this page'
+      redirect_to root_path
+    end
+  end
 end

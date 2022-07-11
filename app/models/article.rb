@@ -10,6 +10,8 @@ class Article < ApplicationRecord
     live: 2
   }
 
+  self.locking_column = :edition_counter
+
   validates :title, presence: true, length: { minimum: 6, maximum: 100 }
   validates :body, presence: true, length: { minimum: 20, maximum: 1000 }
 

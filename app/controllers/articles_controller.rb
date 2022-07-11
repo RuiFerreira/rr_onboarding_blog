@@ -2,6 +2,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %I[show edit update destroy submit_draft approve]
   before_action :enabled_users, only: %I[new edit]
   before_action :validate_session, except: %I[show]
+  before_action :increment_edition_counter, only: %I[update]
+  before_action only: %I[edit update destroy] do
+    validate_self_edition_access(@article.user)
+  end
 
   def show; end
 
@@ -39,8 +43,6 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    # not saved if fail so we can always increment
-    @article.edition_counter += 1
     if @article.update(article_params) && !@article.live?
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
@@ -48,6 +50,10 @@ class ArticlesController < ApplicationController
       enabled_users
       render 'edit'
     end
+  rescue ActiveRecord::StaleObjectError => _e
+    @article.errors.add(:base, 'The article has changed since you last opened it. Please refresh the page')
+    enabled_users
+    render 'edit'
   end
 
   def destroy
@@ -70,7 +76,7 @@ class ArticlesController < ApplicationController
   end
 
   def approve
-    if @article.pending? && @article.update(status: :live)
+    if @article.user != current_user && @article.pending? && @article.update(status: :live)
       flash[:notice] = 'Article successfully reviewed.'
     else
       flash[:alert] = 'Article could not be reviewed'
@@ -88,10 +94,15 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body, tag_ids: [])
+    params.require(:article).permit(:title, :body, :edition_counter, tag_ids: [])
   end
 
   def enabled_users
     @users = User.enabled
   end
+
+  def increment_edition_counter
+    @article.edition_counter += 1
+  end
+
 end

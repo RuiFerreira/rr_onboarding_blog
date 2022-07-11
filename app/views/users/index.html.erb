@@ -18,8 +18,7 @@
             %>
             <div class="author-card-description"><small><strong>Email:</strong> <%= user.email %></small></div>
             <hr class="mt-0 mb-1">
-            <%# TODO: add link to user articles page %>
-            <small>Authored <%= user.articles.length %> articles</small><br/>
+            <small>Authored <%= user.articles.count %> articles</small><br/>
             <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
           </p>
         </div>

@@ -6,7 +6,14 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @articles = Article.user_live_articles(current_user).paginate(page: params[:page], per_page: 5)
+    if !params[:author].nil? && params[:author] != ""
+      live_article_list = Article.filter_by_author_name(params[:author])
+    else
+      live_article_list = Article.user_live_articles(current_user)
+    end
+    # runs on top of either the session user's live_article_list or the author's live_article_lit
+    live_article_list = Article.filter_by_tags(params[:tags], live_article_list) if params[:tags]
+    @articles = live_article_list.paginate(page: params[:page], per_page: 5)
   end
 
   def pending
@@ -24,7 +31,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully created'
       redirect_to @article
     else
-      @users = enabled_users # not in before action so it only triggers when needed
+      enabled_users # not in before action so it only triggers when needed
       render 'new'
     end
   end
@@ -38,7 +45,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
-      @users = enabled_users
+      enabled_users
       render 'edit'
     end
   end

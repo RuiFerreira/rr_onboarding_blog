@@ -1,0 +1,25 @@
+
+
+  <form action="<%= articles_path %>" method="get" class="row justify-content-end" >
+    <div class="col-12">
+      <h4>Filters:</h4>
+    </div>
+    <div class="col-12">
+      <label for="author" class="form-label">Filter by Author:</label>
+      <input name="author" class="form-control me-2" type="search" placeholder="Search by Author" aria-label="author"  <%= !params[:author].nil? ? "value=#{params[:author]}" : ''%> >
+    </div>
+    <div class="col-12">
+      <label for="tags" class="form-label">Filter by Tags:</label>
+      <select class="form-select" multiple size="3" aria-label="multiple select example" name="tags[]">
+        <% Tag.all.each do |tag| %>
+          <option
+           <%= (!params[:tags].nil? && params[:tags].include?(tag.name)) ? 'selected' : ''%> 
+           value="<%=tag.name%>"><%=tag.name%></option>
+        <% end %>
+      </select>
+       
+    </div>
+    <div class="col-auto offset-1">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+  </form>

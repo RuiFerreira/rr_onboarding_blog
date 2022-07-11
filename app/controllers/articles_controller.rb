@@ -76,7 +76,7 @@ class ArticlesController < ApplicationController
   end
 
   def approve
-    if @article.pending? && @article.update(status: :live)
+    if @article.user != current_user && @article.pending? && @article.update(status: :live)
       flash[:notice] = 'Article successfully reviewed.'
     else
       flash[:alert] = 'Article could not be reviewed'

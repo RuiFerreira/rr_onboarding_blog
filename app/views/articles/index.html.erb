@@ -6,7 +6,9 @@
   <% if logged_in? %>
     <%= render 'articles/searchbar' %>
   <% end %>
-  <%= render 'shared/pagination', obj: @articles %>
-  <%= render 'articles_list' %>
-  <%= render 'shared/pagination', obj: @articles %>
+  <% if @articles.count > 0 %>
+    <%= render 'shared/pagination', obj: @articles %>
+    <%= render 'articles_list' %>
+    <%= render 'shared/pagination', obj: @articles %>
+  <% end %>
 </div>

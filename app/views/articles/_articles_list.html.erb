@@ -26,16 +26,17 @@
         <small class="float-end"><%= time_ago_in_words(article.created_at) %> ago</small><br/>
       </div>
     </div>
-    <%# show next block only if user == session user %>
-    <div class="row mt-2 justify-content-end">
-      <% if !article.live? %>
+    <% if logged_in? && current_user == article.user %>
+      <div class="row mt-2 justify-content-end">
+        <% if !article.live? %>
+          <div class="col-auto">
+            <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
+          </div>
+        <% end %>
         <div class="col-auto">
-          <%= link_to fa_icon('edit'), edit_article_path(article), class: "action-icons" %>
+          <%= link_to fa_icon('trash'), article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"}, class: "action-icons" %>
         </div>
-      <% end %>
-      <div class="col-auto">
-        <%= link_to fa_icon('trash'), article_path(article), method: :delete, data: { confirm: "Confirm deletion of article \"#{article.title.capitalize}\"?"}, class: "action-icons" %>
       </div>
-    </div>
+    <% end %>
   </div>
 <% end %>

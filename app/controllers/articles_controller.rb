@@ -1,21 +1,16 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %I[show edit update destroy submit_draft]
+  before_action :set_article, only: %I[show edit update destroy submit_draft approve]
   before_action :enabled_users, only: %I[new edit]
+  before_action :validate_session, except: %I[show]
 
   def show; end
 
   def index
-    # main article listing page will only list Live and Draft articles or only Live articles based on
-    # all = true param
-    @articles = if params[:all]
-                  Article.user_live_articles
-                else
-                  Article.live
-                end
+    @articles = Article.user_live_articles(current_user)
   end
 
   def pending
-    @articles = Article.user_pending_articles
+    @articles = Article.articles_user_can_review(current_user)
   end
 
   def new
@@ -24,7 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    # TODO: add user to article based on session
+    @article.user = current_user
     if @article.save
       flash[:notice] = 'Article successfully created'
       redirect_to @article
@@ -67,6 +62,15 @@ class ArticlesController < ApplicationController
     redirect_to @article
   end
 
+  def approve
+    if @article.pending? && @article.update(status: :live)
+      flash[:notice] = 'Article successfully reviewed.'
+    else
+      flash[:alert] = 'Article could not be reviewed'
+    end
+    redirect_to @article
+  end
+
   private
 
   # sets the article based on id sent in url params
@@ -77,7 +81,7 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body, :user_id)
+    params.require(:article).permit(:title, :body)
   end
 
   def enabled_users

@@ -5,9 +5,14 @@
       <div class="col-auto">
         <h2><%= @article.title %></h2>
       </div>
-      <div class="col text-left vertical-center">
+      <div class="col-auto px-2 text-left vertical-center">
         <span class="badge rounded-pill article-status-badge-<%= @article.status %> px-2 py-1"><%= @article.status %></span>
       </div>
+      <% if current_user != @article.user && @article.pending?  %>
+        <div class="col text-left vertical-center">
+          <%= link_to fa_icon('upload'), approve_article_path(@article), class: "action-icons", method: :put, data: { confirm: "Confirm you want the article \"#{@article.title.capitalize}\" go live?"} %>
+        </div>
+      <% end %>
     </div>
     <div class="row my-4">
       <div class="col-12 col-md-10">
@@ -29,18 +34,20 @@
     <div class="row mt-2 justify-content-end">
       <% if @article.draft? %>
         <div class="col-auto">
-          <%= link_to fa_icon('upload'), submit_draft_path_url(@article), class: "action-icons", method: :put %>
+          <%= link_to fa_icon('upload'), submit_draft_path(@article), class: "action-icons", method: :put %>
         </div>
       <% end %>
       <%# edit feature is only available if the articles are not LIVE%>
-      <% if !@article.live? %>
+      <% if current_user == @article.user%>
+        <% if !@article.live? %>
+          <div class="col-auto">
+            <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+          </div>
+        <% end %>
         <div class="col-auto">
-          <%= link_to fa_icon('edit'), edit_article_path(@article), class: "action-icons" %>
+          <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
         </div>
       <% end %>
-      <div class="col-auto">
-        <%= link_to fa_icon('trash'), article_path(@article), method: :delete, data: { confirm: "Confirm deletion of article \"#{@article.title.capitalize}\"?"}, class: "action-icons" %>
-      </div>
     </div>
   </div>
 </div>

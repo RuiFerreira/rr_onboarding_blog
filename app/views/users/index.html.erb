@@ -10,7 +10,8 @@
         <%= image_tag("no_avatar.png", :alt => "user avatar", :class=> "card-img-top no-avatar-image") %>
 
         <div class="card-body pb-0">
-          <h5 class="card-title"><small>Username: <%= user.username %></small></h5>
+          <%= link_to "Username: #{user.username}", user_path(user), class: "action-icons col-auto" %>
+          <h5 class="card-title"><small></small></h5>
           <p class="card-text">
             <%# TODO: bad idea to show email, add a share_info boolean which can be toggled in a settings screen
                 by toggling the user accepts to make his email public, then we just do conditional rendering here
@@ -21,13 +22,6 @@
             <small>Authored <%= user.articles.length %> articles</small><br/>
             <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
           </p>
-        </div>
-        <div class="card-body py-0">
-          <div class="row justify-content-end">
-            <%= link_to fa_icon('eye'), user_path(user), class: "action-icons col-auto" %>
-            <%= link_to fa_icon('edit'), edit_user_path(user), class: "action-icons col-auto" %>
-          </div>
-          
         </div>
       </div>
     <% end %>

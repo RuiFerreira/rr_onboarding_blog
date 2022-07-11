@@ -1,0 +1,37 @@
+<div class="page-content row justify-content-center">
+  <div class="col-12 col-md-7 h-100 p-5 bg-light border rounded-3">
+    <div class="signup-title">
+      <h2>Available Tags<%= link_to fa_icon('plus'), new_tag_path, class: "p-4 action-icons" %></h2>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Created at</th>
+          <th scope="col text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      <% @tags.each_with_index do |tag, index| %>
+        <tr>
+          <td scope="row"><%= index + 1 %></th>
+          <td><%= tag.name.capitalize %></td>
+          <td><%= tag.created_at %></td>
+          <td>
+            <div class="row">
+              <div class="col-auto">
+                <%= link_to fa_icon('edit'), edit_tag_path(tag), class: "action-icons" %>
+              </div>
+              <div class="col">
+                <%= link_to fa_icon('trash'), tag_path(tag), method: :delete, data: { confirm: "Confirm deletion of tag \"#{tag.name.capitalize}\"?"}, class: "action-icons" %>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,5 +1,9 @@
 class Article < ApplicationRecord
   belongs_to :user
+  
+  has_many :article_tags
+  has_many :tags, through: :article_tags
+
   enum status: {
     draft: 0,
     pending: 1,

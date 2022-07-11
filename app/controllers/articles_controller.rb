@@ -6,11 +6,11 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @articles = Article.user_live_articles(current_user)
+    @articles = Article.user_live_articles(current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def pending
-    @articles = Article.articles_user_can_review(current_user)
+    @articles = Article.articles_user_can_review(current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -81,7 +81,7 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, tag_ids: [])
   end
 
   def enabled_users

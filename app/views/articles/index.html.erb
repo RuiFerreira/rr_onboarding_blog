@@ -3,5 +3,7 @@
   <div class="col-12 text-center">
     <h2>Articles</h2>
   </div>
+  <%= render 'shared/pagination', obj: @articles %>
   <%= render 'articles_list' %>
+  <%= render 'shared/pagination', obj: @articles %>
 </div>

@@ -11,6 +11,8 @@
     <div class="col-12 mt-2 text-center">
       <h2>Browse articles</h2> 
     </div>
+    <%= render 'shared/pagination', obj: @articles %>
     <%= render 'articles/articles_list' %>
+    <%= render 'shared/pagination', obj: @articles %>
   </div>
 </div>

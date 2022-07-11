@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      UserMailerJob.perform_now(@user)
+      UserMailerJob.perform_async(@user.id)
       session[:user_id] = @user.id
       flash[:notice] = "Welcome #{@user.username}, you are now a member of Runtime Revolution's Blog!"
       redirect_to articles_path

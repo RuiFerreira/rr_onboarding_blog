@@ -1,7 +1,8 @@
-class UserMailerJob < ApplicationJob
-  queue_as :default
+class UserMailerJob
+  include Sidekiq::Job
 
-  def perform(user)
-    UserMailer.with(user: user).register_email.deliver
+  def perform(user_id)
+    @user = User.find(user_id)
+    UserMailer.with(user: @user).register_email.deliver
   end
 end

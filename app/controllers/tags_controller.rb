@@ -31,14 +31,12 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    if @tag.destroy
-      # TODO: end session here when implemented
+    if @tag.articles.count.zero? && @tag.destroy
       flash[:notice] = 'Tag successfully deleted'
-      redirect_to tags_path
     else
-      flash[:alert] = 'Tag could not be deleted'
-      redirect_to 'show'
+      flash[:alert] = 'Tag could not be deleted. Please delete its articles.'
     end
+    redirect_to tags_path
   end
 
   private

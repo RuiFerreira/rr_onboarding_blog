@@ -3,6 +3,9 @@ class ArticlesController < ApplicationController
   before_action :enabled_users, only: %I[new edit]
   before_action :validate_session, except: %I[show]
   before_action :increment_edition_counter, only: %I[update]
+  before_action only: %I[edit update destroy] do
+    validate_self_edition_access(@article.user)
+  end
 
   def show; end
 
@@ -101,4 +104,5 @@ class ArticlesController < ApplicationController
   def increment_edition_counter
     @article.edition_counter += 1
   end
+
 end

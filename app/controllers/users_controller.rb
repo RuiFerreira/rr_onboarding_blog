@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %I[show edit update destroy]
   before_action :validate_session, only: %I[edit update]
+  before_action only: %I[edit update destroy] do
+    validate_self_edition_access(@user)
+  end
   def show
     @articles = User.find(params[:id]).articles.live.paginate(page: params[:page], per_page: 5)
   end

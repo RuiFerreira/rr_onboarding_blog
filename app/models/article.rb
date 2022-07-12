@@ -26,4 +26,9 @@ class Article < ApplicationRecord
   scope :filter_by_tags, ->(tag_names, article_list) {
     article_list.includes(article_tags: :tag).where(article_tags: { tags: { name: tag_names } })
   }
+
+  scope :active_tags, -> {
+    Tag.joins(:article_tags).group('article_tags.tag_id')
+  }
+
 end

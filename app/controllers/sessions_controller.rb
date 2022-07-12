@@ -1,12 +1,19 @@
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    @redirect = params[:redirect]
+  end
 
   def create
+    @redirect = params[:session][:redirect]
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
       flash[:notice] = 'Login successful'
-      redirect_to articles_path
+      if !@redirect.nil? || @redirect.empty?
+        redirect_to @redirect
+      else
+        redirect_to articles_path
+      end
     else
       flash.now[:alert] = 'Wrong login credentials'
       render 'new'
@@ -17,5 +24,11 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = 'Logout successful'
     redirect_to root_path
+  end
+
+  private
+  
+  def url_redirect
+    
   end
 end

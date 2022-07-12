@@ -18,4 +18,8 @@ class User < ApplicationRecord
                     format: { with: EMAIL_REGEX_VALIDATION }
 
   has_secure_password
+
+  scope :active_authors, -> {
+    User.joins(:articles).group('articles.user_id')
+  }
 end

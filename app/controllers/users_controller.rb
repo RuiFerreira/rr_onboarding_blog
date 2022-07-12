@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.active_authors
   end
 
   def new

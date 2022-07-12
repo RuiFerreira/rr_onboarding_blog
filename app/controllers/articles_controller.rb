@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @tags = Article.active_tags
+    @tags = Tag.active_tags
     if !params[:author].nil? && params[:author] != ""
       live_article_list = Article.filter_by_author_name(params[:author])
     else

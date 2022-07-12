@@ -20,14 +20,10 @@ class Article < ApplicationRecord
   scope :articles_user_can_review, ->(user) { pending.where.not(user: user) }
 
   scope :filter_by_author_name, ->(author_name) {
-    user = User.where('LOWER(username) LIKE ?', "%#{author_name.downcase}%")
-    live.where(user: user)
+    live.includes(:user).where('LOWER(users.username) LIKE ?', "%#{author_name.downcase}%").references(:user)
   }
 
   scope :filter_by_tags, ->(tag_names, article_list) {
-    tags = Tag.where(name: tag_names)
-    article_tags = ArticleTag.where(tag_id: tags).where(article_id: article_list)
-    article_list.where(article_tags: article_tags)
+    article_list.includes(article_tags: :tag).where(article_tags: { tags: { name: tag_names } })
   }
-
 end

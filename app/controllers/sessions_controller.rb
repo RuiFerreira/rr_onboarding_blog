@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
       flash[:notice] = 'Login successful'
-      if !@redirect.nil? || @redirect.empty?
+      if !@redirect.nil? && !@redirect.empty?
         redirect_to @redirect
       else
         redirect_to articles_path

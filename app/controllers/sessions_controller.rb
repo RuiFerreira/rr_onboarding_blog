@@ -25,10 +25,4 @@ class SessionsController < ApplicationController
     flash[:notice] = 'Logout successful'
     redirect_to root_path
   end
-
-  private
-  
-  def url_redirect
-    
-  end
 end

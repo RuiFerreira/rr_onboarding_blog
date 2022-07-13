@@ -1,8 +1,7 @@
 class Article < ApplicationRecord
   belongs_to :user
   
-  has_many :article_tags
-  has_many :tags, through: :article_tags
+  has_many :tags, as: :tagged_on
 
   enum status: {
     draft: 0,
@@ -24,7 +23,8 @@ class Article < ApplicationRecord
   }
 
   scope :filter_by_tags, ->(tag_names, article_list) {
-    article_list.includes(article_tags: :tag).where(article_tags: { tags: { name: tag_names } })
+    # article_list.includes(article_tags: :tag).where(article_tags: { tags: { name: tag_names } })
+    article_list.joins(:tagged_on)
   }
 
 end

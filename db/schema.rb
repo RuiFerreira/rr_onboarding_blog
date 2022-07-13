@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_07_130239) do
+ActiveRecord::Schema.define(version: 2022_07_13_081747) do
 
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id"
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 2022_07_07_130239) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tagged_on_type"
+    t.integer "tagged_on_id"
+    t.index ["tagged_on_type", "tagged_on_id"], name: "index_tags_on_tagged_on"
   end
 
   create_table "users", force: :cascade do |t|

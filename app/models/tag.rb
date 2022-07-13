@@ -6,6 +6,6 @@ class Tag < ApplicationRecord
                    length: { minimum: 3, maximum: 20 }
                    
   scope :active_tags, -> {
-    Tag.joins(:article_tags).group('article_tags.tag_id')
+    Tag.joins(:article_tags).group('article_tags.tag_id, tags.id')
   }
 end

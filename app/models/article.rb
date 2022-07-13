@@ -1,7 +1,8 @@
 class Article < ApplicationRecord
   belongs_to :user
   
-  has_many :tags, as: :tagged_on
+  has_many :associated_tags, as: :tagged_on
+  has_many :tags, through: :associated_tags
 
   enum status: {
     draft: 0,

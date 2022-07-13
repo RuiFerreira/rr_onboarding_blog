@@ -20,6 +20,6 @@ class User < ApplicationRecord
   has_secure_password
 
   scope :active_authors, -> {
-    User.joins(:articles).group('articles.user_id')
+    User.joins(:articles).group('articles.user_id, users.id')
   }
 end

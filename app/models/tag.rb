@@ -4,5 +4,5 @@ class Tag < ApplicationRecord
                    uniqueness: [case_sensitive: false],
                    length: { minimum: 3, maximum: 20 }
                    
-  scope :active_article_tags, -> { Tag.joins(:associated_tags).group('associated_tags.tagged_on_id, tags.id') }
+  scope :active_article_tags, -> { Tag.joins(:associated_tags).group('associated_tag.tagged_on_id, tag.id') }
 end

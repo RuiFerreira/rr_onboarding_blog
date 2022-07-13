@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
+    @tags = Tag.active_tags
     if !params[:author].nil? && params[:author] != ""
       live_article_list = Article.filter_by_author_name(params[:author])
     else
@@ -43,7 +44,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    if @article.update(article_params) && !@article.live?
+    if !@article.live? && @article.update(article_params) 
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
@@ -94,7 +95,7 @@ class ArticlesController < ApplicationController
 
   # gets article params from update and create form submitions
   def article_params
-    params.require(:article).permit(:title, :body, :edition_counter, tag_ids: [])
+    params.require(:article).permit(:title, :body, tag_ids: [])
   end
 
   def enabled_users

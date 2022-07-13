@@ -11,7 +11,7 @@
     <div class="col-12">
       <label for="tags" class="form-label">Filter by Tags:</label>
       <select class="form-select" multiple size="3" aria-label="multiple select example" name="tags[]">
-        <% Tag.all.each do |tag| %>
+        <% @tags.each do |tag| %>
           <option
            <%= (!params[:tags].nil? && params[:tags].include?(tag.name)) ? 'selected' : ''%> 
            value="<%=tag.name%>"><%=tag.name%></option>

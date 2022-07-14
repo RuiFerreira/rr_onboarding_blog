@@ -31,7 +31,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    if @tag.articles.count.zero? && @tag.destroy
+    if @tag.associated_tags.count.zero? && @tag.destroy
       flash[:notice] = 'Tag successfully deleted'
     else
       flash[:alert] = 'Tag could not be deleted. Please delete its articles.'

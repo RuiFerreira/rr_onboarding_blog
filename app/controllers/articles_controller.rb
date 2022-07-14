@@ -2,7 +2,6 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %I[show edit update destroy submit_draft approve]
   before_action :enabled_users, only: %I[new edit]
   before_action :validate_session, except: %I[show]
-  before_action :increment_edition_counter, only: %I[update]
   before_action only: %I[edit update destroy] do
     validate_self_edition_access(@article.user)
   end
@@ -10,7 +9,7 @@ class ArticlesController < ApplicationController
   def show; end
 
   def index
-    @tags = Tag.active_tags
+    @tags = Tag.active_article_tags
     if !params[:author].nil? && params[:author] != ""
       live_article_list = Article.filter_by_author_name(params[:author])
     else
@@ -44,7 +43,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    if !@article.live? && @article.update(article_params) 
+    if !@article.live? && @article.update(article_params)
       flash[:notice] = 'Article successfully edited'
       redirect_to @article
     else
@@ -101,9 +100,4 @@ class ArticlesController < ApplicationController
   def enabled_users
     @users = User.enabled
   end
-
-  def increment_edition_counter
-    @article.edition_counter += 1
-  end
-
 end

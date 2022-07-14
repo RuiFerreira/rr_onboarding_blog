@@ -10,12 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_07_130239) do
-
-  create_table "article_tags", force: :cascade do |t|
-    t.integer "article_id"
-    t.integer "tag_id"
-  end
+ActiveRecord::Schema.define(version: 2022_07_13_081747) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -27,10 +22,21 @@ ActiveRecord::Schema.define(version: 2022_07_07_130239) do
     t.integer "edition_counter", default: 0
   end
 
+  create_table "associated_tags", force: :cascade do |t|
+    t.integer "association_id"
+    t.integer "tag_id"
+    t.string "tagged_on_type"
+    t.integer "tagged_on_id"
+    t.index ["tagged_on_type", "tagged_on_id"], name: "index_associated_tags_on_tagged_on"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tagged_on_type"
+    t.integer "tagged_on_id"
+    t.index ["tagged_on_type", "tagged_on_id"], name: "index_tags_on_tagged_on"
   end
 
   create_table "users", force: :cascade do |t|

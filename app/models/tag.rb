@@ -1,11 +1,8 @@
 class Tag < ApplicationRecord
-  has_many :article_tags
-  has_many :articles, through: :article_tags
+  has_many :associated_tags
   validates :name, presence: true,
                    uniqueness: [case_sensitive: false],
                    length: { minimum: 3, maximum: 20 }
                    
-  scope :active_tags, -> {
-    Tag.joins(:article_tags).group('article_tags.tag_id, tags.id')
-  }
+  scope :active_article_tags, -> { Tag.joins(:associated_tags).group('associated_tags.tagged_on_id, tags.id').distinct }
 end

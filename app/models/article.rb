@@ -24,7 +24,6 @@ class Article < ApplicationRecord
   }
 
   scope :filter_by_tags, ->(tag_names, article_list) {
-    # article_list.includes(article_tags: :tag).where(article_tags: { tags: { name: tag_names } })
     article_list.joins(:tags).where(tags: { name: tag_names }).distinct
   }
 
